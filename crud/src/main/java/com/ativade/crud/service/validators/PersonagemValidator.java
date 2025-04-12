@@ -12,48 +12,46 @@ import java.util.function.Predicate;
 public class PersonagemValidator {
 
     private static final Integer QUANTIDADE_AMULETOS_PERMITIDOS = 1;
+    private static final Integer FORCA_DEFESA_PERMITIDA = 10;
     private static final Integer FORCA_MINIMA = 0;
     private static final Integer DEFESA_MINIMA = 0;
 
     public void validate(final Personagem personagem) throws Exception {
-        validateSumItens(personagem);
-        validateTipoArma(personagem);
-        validateTipoArmadura(personagem);
-        validateForcaEDefesa(personagem);
+        forcaEDefesa(personagem);
+        tipoArma(personagem);
+        tipoArmadura(personagem);
+        itemForcaEDefesa(personagem);
         validateTipoAmuleto(personagem);
     }
 
-    private void validateSumItens(final Personagem personagem) throws Exception {
+    private void forcaEDefesa(final Personagem personagem) throws Exception {
 
-        final Integer sumItens = personagem.getItens()
-                .stream()
-                .map(a -> a.getForca() + a.getDefesa())
-                .reduce(0, Integer::sum);
+        final int forcaComDefesa = personagem.getForcaInicial() + personagem.getDefesaInicial();
 
-        if (sumItens > 10)
-            throw new Exception("Soma dos itens não pode ser maior que 10.");
+        if (forcaComDefesa > FORCA_DEFESA_PERMITIDA)
+            throw new Exception("Soma da força mais defesa não pode ser maior que 10.");
 
     }
 
-    private void validateTipoArma(final Personagem personagem) throws Exception {
+    private void tipoArma(final Personagem personagem) throws Exception {
 
-        final Optional<ItemMagico> invalidItem = filterItem(item -> TipoItem.ARMA.equals(item.getTipoItem()) && item.getDefesa() > DEFESA_MINIMA, personagem);
+        final Optional<ItemMagico> invalidItem = filterItem(item -> TipoItem.ARMA.equals(item.getTipoItem()) && !DEFESA_MINIMA.equals(item.getDefesa()), personagem);
 
         if (invalidItem.isPresent())
             throw new Exception("Não pode existir item do tipo arma com defesa maior que zero.");
     }
 
-    private void validateTipoArmadura(final Personagem personagem) throws Exception {
+    private void tipoArmadura(final Personagem personagem) throws Exception {
 
-        final Optional<ItemMagico> invalidItem = filterItem(item -> TipoItem.ARMADURA.equals(item.getTipoItem()) && item.getForca() > FORCA_MINIMA, personagem);
+        final Optional<ItemMagico> invalidItem = filterItem(item -> TipoItem.ARMADURA.equals(item.getTipoItem()) && !FORCA_MINIMA.equals(item.getForca()), personagem);
 
         if (invalidItem.isPresent())
             throw new Exception("Não pode existir item do tipo armadura com força maior que zero.");
     }
 
-    private void validateForcaEDefesa(final Personagem personagem) throws Exception {
+    private void itemForcaEDefesa(final Personagem personagem) throws Exception {
 
-        final Optional<ItemMagico> invalidItem = filterItem(item -> item.getForca() > FORCA_MINIMA && item.getDefesa() > DEFESA_MINIMA, personagem);
+        final Optional<ItemMagico> invalidItem = filterItem(item -> FORCA_MINIMA.equals(item.getForca()) && DEFESA_MINIMA.equals(item.getDefesa()), personagem);
 
         if (invalidItem.isPresent())
             throw new Exception("Não pode existir itens com zero de defesa e zero de força.");

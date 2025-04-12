@@ -1,6 +1,7 @@
 package com.ativade.crud.model;
 
 import com.ativade.crud.enums.TipoItem;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -11,6 +12,7 @@ import java.util.UUID;
 @Getter
 @Table
 @Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -20,6 +22,10 @@ public class ItemMagico {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @ManyToOne
+    @JsonIgnore
+    private Personagem personagem;
 
     @NotNull
     private String nome;
