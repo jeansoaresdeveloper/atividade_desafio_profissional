@@ -2,6 +2,8 @@ package com.ativade.crud.controller;
 
 import com.ativade.crud.dto.PersonagemDTO;
 import com.ativade.crud.dto.UpdateNomeDTO;
+import com.ativade.crud.exceptions.NotFoundException;
+import com.ativade.crud.exceptions.PersonagemException;
 import com.ativade.crud.model.ItemMagico;
 import com.ativade.crud.model.Personagem;
 import com.ativade.crud.service.PersonagemService;
@@ -28,7 +30,7 @@ public class PersonagemController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Personagem> findById(@PathVariable UUID id) {
+    public ResponseEntity<Personagem> findById(@PathVariable UUID id) throws NotFoundException {
         return ResponseEntity.ok(service.findById(id));
     }
 
@@ -38,7 +40,7 @@ public class PersonagemController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> create(@RequestBody @Valid final PersonagemDTO personagem) throws Exception {
+    public ResponseEntity<Void> create(@RequestBody @Valid final PersonagemDTO personagem) throws PersonagemException {
         final Personagem personagemSaved = service.save(personagem);
         final URI uri = URIUtils.build(personagemSaved.getId());
         return ResponseEntity.created(uri).build();
@@ -56,7 +58,7 @@ public class PersonagemController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable final UUID id) {
+    public ResponseEntity<Void> delete(@PathVariable final UUID id) throws NotFoundException {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -18,7 +19,7 @@ public class PersonagemAdapter implements Adapter<Personagem, PersonagemDTO> {
     @Override
     public Personagem toEntity(PersonagemDTO DTO) {
 
-        final List<ItemMagico> itens = adapterItens(DTO.itens());
+        final List<ItemMagico> itens = adapterItens(Optional.ofNullable(DTO.itens()).orElse(List.of()));
 
         return Personagem.builder()
                 .nome(DTO.nome())

@@ -1,8 +1,11 @@
 package com.ativade.crud.controller;
 
+import com.ativade.crud.dto.ItemMagicoDTO;
+import com.ativade.crud.exceptions.NotFoundException;
 import com.ativade.crud.model.ItemMagico;
 import com.ativade.crud.service.ItemMagicoService;
 import com.ativade.crud.utils.URIUtils;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +27,7 @@ public class ItemMagicoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ItemMagico> findById(@PathVariable final UUID id) {
+    public ResponseEntity<ItemMagico> findById(@PathVariable final UUID id) throws NotFoundException {
         return ResponseEntity.ok(service.findById(id));
     }
 
@@ -34,14 +37,14 @@ public class ItemMagicoController {
     }
 
     @PostMapping("/{id}/personagem")
-    public ResponseEntity<ItemMagico> create(@PathVariable final UUID id, @RequestBody final ItemMagico itemMagico) throws Exception {
+    public ResponseEntity<ItemMagico> create(@PathVariable final UUID id, @RequestBody @Valid final ItemMagicoDTO itemMagico) throws Exception {
         final ItemMagico itemCreated = service.createByPersonagem(id, itemMagico);
         final URI uri = URIUtils.build(itemCreated.getId());
         return ResponseEntity.created(uri).build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable final UUID id) {
+    public ResponseEntity<Void> delete(@PathVariable final UUID id) throws NotFoundException {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

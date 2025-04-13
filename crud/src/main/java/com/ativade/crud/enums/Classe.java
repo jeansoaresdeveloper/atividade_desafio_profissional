@@ -7,5 +7,4 @@ public enum Classe {
     ARQUEIRO,
     LADINO,
     BARDO;
-
 }

@@ -24,17 +24,17 @@ public record PersonagemDTO(
         Classe classe,
 
         @NotNull
-        @Min(value = 0, message = "Minimo 0")
+        @Min(value = 0, message = "Level Mínimo 0")
         Integer level,
 
         @NotNull(message = "Força não pode ser nulo")
-        @Min(value = 0, message = "Minimo 0")
-        @Max(value = 10, message = "Máximo 10")
+        @Min(value = 0, message = "Força Mínima 0")
+        @Max(value = 10, message = "Força Máxima 10")
         Integer forca,
 
         @NotNull(message = "Defesa não pode ser nulo")
-        @Min(value = 0, message = "Minimo 0")
-        @Max(value = 10, message = "Minimo 10")
+        @Min(value = 0, message = "Defesa Mínima 0")
+        @Max(value = 10, message = "Defesa Máxima 10")
         Integer defesa,
 
         @Valid
