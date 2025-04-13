@@ -37,23 +37,23 @@ Features
 
 Serão necessários os mapeamentos abaixo (Entrega dessa documentação por Swagger, ReadMe ou similares).
 
-Cadastrar Personagem; **
-Cadastrar Item Mágico; **
+Cadastrar Personagem; ***
+Cadastrar Item Mágico; ***
 
-Listar Personagem; **
-Buscar Personagem por Identificador; **
+Listar Personagem; ***
+Buscar Personagem por Identificador; ***
 
-Atualizar Nome Aventureiro por Identificador; **
+Atualizar Nome Aventureiro por Identificador; ***
 
 Remover Personagem; **
 
-Listar Itens Mágicos; **
+Listar Itens Mágicos; ***
 
-Buscar Item Mágico por Identificador; **
+Buscar Item Mágico por Identificador; ***
 
-Adicionar Item Mágico ao Personagem; **
-Listar Itens Mágicos por Personagem; **
+Adicionar Item Mágico ao Personagem; ***
+Listar Itens Mágicos por Personagem; ***
 
-Remover Item Mágico do Personagem; **
+Remover Item Mágico do Personagem; ***
 
-Buscar Amuleto do Personagem; **
+Buscar Amuleto do Personagem; ***

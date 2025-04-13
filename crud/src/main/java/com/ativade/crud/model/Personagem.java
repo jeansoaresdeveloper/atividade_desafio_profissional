@@ -31,6 +31,7 @@ public class Personagem {
     @Setter
     private String nomeAventureiro;
 
+    @Enumerated(value = EnumType.STRING)
     private Classe classe;
 
     private Integer level;

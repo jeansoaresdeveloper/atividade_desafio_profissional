@@ -30,6 +30,7 @@ public class ItemMagico {
     @NotNull
     private String nome;
 
+    @Enumerated(value = EnumType.STRING)
     private TipoItem tipoItem;
 
     private Integer forca;
