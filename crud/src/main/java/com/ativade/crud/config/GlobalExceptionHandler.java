@@ -24,9 +24,10 @@ import java.util.stream.Collectors;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleGeneralException(Exception exception) {
+    public ResponseEntity<ResponseException> handleGeneralException(Exception exception) {
         log.error(exception.getMessage());
-        return new ResponseEntity<>("Ocorreu um erro inesperado", HttpStatus.INTERNAL_SERVER_ERROR);
+        final ResponseException response = ResponseException.of("Ocorreu um erro inesperado", HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(response, response.getStatus());
     }
 
     @ExceptionHandler(RestException.class)
